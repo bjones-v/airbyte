@@ -4,9 +4,28 @@ connectionSpecification:
   title: Bamboo Hr Custom Spec
   type: object
   required:
-    - TODO
+    - apikey
+    - company_domain
+    - table_name
+    - since
   properties:
-    # 'TODO: This schema defines the configuration required for the source. This usually involves metadata such as database and/or authentication information.':
-    TODO:
+    apikey:
       type: string
-      description: describe me
+      description: Access key used to access the BambooHR API.
+      airbyte_secret: true
+    company_domain:
+      type: string
+      description: The subdomain used to access BambooHR.
+    # table_name:
+    #   type: string
+    #   description: The name of the table to be pulled.
+    #   examples:
+    #     - "employmentStatus"
+    #     - "compensation"
+    #     - "jobInfo"
+    #     - "customJobRequisition"
+    since:
+      type: string
+      description: Pull all changes since this timestamp. URL-encoded iso8601.
+
+

@@ -9,6 +9,7 @@ from abc import ABC
 from typing import Any, Iterable, List, Mapping, Optional, Tuple
 
 import requests
+import xmltodict
 from airbyte_cdk.models.airbyte_protocol import SyncMode
 from airbyte_cdk.sources import AbstractSource
 from airbyte_cdk.sources.streams import Stream
@@ -58,7 +59,42 @@ class EmployeesDirectoryStream(BambooHrStream):
 
     def path(self, **kwargs) -> str:
         return "employees/directory"
+    
+class EmploymentStatusStream(BambooHrStream):
+    primary_key = None
 
+    def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
+        yield from json.dumps(xmltodict.parse(response.text))["employee"]
+
+    def path(self, **kwargs) -> str:
+        return "employees/changed/tables/employmentStatus?since=2020-02-01T00%3A00%3A00%2B0000"
+
+class CompensationStream(BambooHrStream):
+    primary_key = None
+
+    def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
+        yield from json.dumps(xmltodict.parse(response.text))["employee"]
+
+    def path(self, **kwargs) -> str:
+        return "employees/changed/tables/compensation?since=2020-02-01T00%3A00%3A00%2B0000"
+    
+class JobInfoStream(BambooHrStream):
+    primary_key = None
+
+    def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
+        yield from json.dumps(xmltodict.parse(response.text))["employee"]
+
+    def path(self, **kwargs) -> str:
+        return "employees/changed/tables/jobInfo?since=2020-02-01T00%3A00%3A00%2B0000"
+
+class CustomJobRequisition(BambooHrStream):
+    primary_key = None
+
+    def parse_response(self, response: requests.Response, **kwargs) -> Iterable[Mapping]:
+        yield from json.dumps(xmltodict.parse(response.text))["employee"]
+
+    def path(self, **kwargs) -> str:
+        return "employees/changed/tables/customJobRequisition?since=2020-02-01T00%3A00%3A00%2B0000"
 
 class CustomReportsStream(BambooHrStream):
     primary_key = None
