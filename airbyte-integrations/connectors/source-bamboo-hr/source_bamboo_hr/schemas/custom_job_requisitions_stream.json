@@ -1,0 +1,16 @@
+{
+    "type": ["null", "object"],
+    "required": [],
+    "properties": {
+      "@id": {
+        "type": ["null", "string"]
+      },
+      "@lastChanged": {
+        "type": ["null", "string"]
+      },
+      "row": {
+        "type": ["null", "string"]
+      }
+    }
+  }
+  
